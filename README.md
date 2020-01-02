@@ -43,7 +43,7 @@ import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.da
 ```
 
 
-<img src="https://github.com/godlessturtle/flutter_floating_bottom_navigation_bar/screenshot.png">
+<img width="899" height:"1604"  src="https://github.com/godlessturtle/flutter_floating_bottom_navigation_bar/blob/master/screenshot.png?raw=true">
 
 ### ❗️ Note
 
