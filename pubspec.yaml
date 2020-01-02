@@ -1,8 +1,8 @@
 name: floating_bottom_navigation_bar
 description: A new Flutter package project.
-version: 0.0.1
-author:
-homepage:
+version: 1.0.2
+author: Murat Aslan <murataslanx33@gmail.com>
+homepage: https://github.com/godlessturtle/flutter_floating_bottom_navigation_bar
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
