@@ -43,10 +43,7 @@ import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.da
 ```
 
 
-<img src="https://github.com/godlessturtle/flutter-alertify/blob/master/Ekran%20Resmi%202019-10-03%2011.16.10.png">
-<img src="https://github.com/godlessturtle/flutter-alertify/blob/master/Ekran%20Resmi%202019-10-03%2011.16.21.png">
-<img src="https://github.com/godlessturtle/flutter-alertify/blob/master/Ekran%20Resmi%202019-10-03%2011.16.31.png">
-<img src="https://github.com/godlessturtle/flutter-alertify/blob/master/Ekran%20Resmi%202019-10-03%2011.16.40.png">
+<img src="https://github.com/godlessturtle/flutter_floating_bottom_navigation_bar/screenshot.png">
 
 ### ❗️ Note
 
