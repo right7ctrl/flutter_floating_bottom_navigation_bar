@@ -74,6 +74,8 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
                               },
                               borderRadius: BorderRadius.circular(8),
                               child: Container(
+                                //max-width for each item
+                                //24 is the padding from left and right
                                 width: MediaQuery.of(context).size.width * (100 / (items.length * 100)) - 24,
                                 padding: EdgeInsets.all(4),
                                 child: Column(
