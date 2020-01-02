@@ -2,7 +2,7 @@ import 'package:floating_bottom_navigation_bar/src/floating_navbar_item.dart';
 import 'package:flutter/material.dart';
 
 
-class FloatingNavbar extends StatelessWidget {
+class FloatingNavbar extends StatefulWidget {
   final List<FloatingNavbarItem> items;
   final int currentIndex;
   final int Function(int val) onTap;
@@ -30,45 +30,10 @@ class FloatingNavbar extends StatelessWidget {
         super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
+  _FloatingNavbarState createState() => _FloatingNavbarState();
 }
 
-
-
-class CustomBottomBar extends StatefulWidget {
-  final List<FloatingNavbarItem> items;
-  final int currentIndex;
-  final int Function(int val) onTap;
-  final Color selectedBackgroundColor;
-  final Color selectedItemColor;
-  final Color unselectedItemColor;
-  final Color backgroundColor;
-  final double fontSize;
-  final double iconSize;
-
-  const CustomBottomBar(
-      {Key key,
-        @required this.items,
-        @required this.currentIndex,
-        @required this.onTap,
-        this.backgroundColor = Colors.black,
-        this.selectedBackgroundColor = Colors.white,
-        this.selectedItemColor = Colors.black,
-        this.iconSize = 24.0,
-        this.fontSize = 11.0,
-        this.unselectedItemColor = Colors.white})
-      : assert(items.length > 1),
-        assert(items.length <= 5),
-        assert(currentIndex <= items.length),
-        super(key: key);
-
-  @override
-  _CustomBottomBarState createState() => _CustomBottomBarState();
-}
-
-class _CustomBottomBarState extends State<CustomBottomBar> {
+class _FloatingNavbarState extends State<FloatingNavbar> {
   List<FloatingNavbarItem> get items => widget.items;
 
   @override
