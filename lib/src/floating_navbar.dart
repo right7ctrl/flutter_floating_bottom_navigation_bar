@@ -1,29 +1,32 @@
 import 'package:floating_bottom_navigation_bar/src/floating_navbar_item.dart';
 import 'package:flutter/material.dart';
 
-
 class FloatingNavbar extends StatefulWidget {
   final List<FloatingNavbarItem> items;
   final int currentIndex;
-  final int Function(int val) onTap;
+  final void Function(int val) onTap;
   final Color selectedBackgroundColor;
   final Color selectedItemColor;
   final Color unselectedItemColor;
   final Color backgroundColor;
   final double fontSize;
   final double iconSize;
+  final double itemBorderRadius;
+  final double borderRadius;
 
   const FloatingNavbar(
       {Key key,
-        @required this.items,
-        @required this.currentIndex,
-        @required this.onTap,
-        this.backgroundColor = Colors.black,
-        this.selectedBackgroundColor = Colors.white,
-        this.selectedItemColor = Colors.black,
-        this.iconSize = 24.0,
-        this.fontSize = 11.0,
-        this.unselectedItemColor = Colors.white})
+      @required this.items,
+      @required this.currentIndex,
+      @required this.onTap,
+      this.backgroundColor = Colors.black,
+      this.selectedBackgroundColor = Colors.white,
+      this.selectedItemColor = Colors.black,
+      this.iconSize = 24.0,
+      this.fontSize = 11.0,
+      this.borderRadius = 8,
+      this.itemBorderRadius = 8,
+      this.unselectedItemColor = Colors.white})
       : assert(items.length > 1),
         assert(items.length <= 5),
         assert(currentIndex <= items.length),
@@ -49,7 +52,7 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
             child: Container(
               padding: EdgeInsets.only(bottom: 8, top: 8),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(widget.borderRadius),
                 color: widget.backgroundColor,
               ),
               width: double.infinity,
@@ -67,7 +70,8 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
                           AnimatedContainer(
                             duration: Duration(milliseconds: 300),
                             decoration: BoxDecoration(
-                                color: widget.currentIndex == items.indexOf(f) ? widget.selectedBackgroundColor : widget.backgroundColor, borderRadius: BorderRadius.circular(8)),
+                                color: widget.currentIndex == items.indexOf(f) ? widget.selectedBackgroundColor : widget.backgroundColor,
+                                borderRadius: BorderRadius.circular(widget.itemBorderRadius)),
                             child: InkWell(
                               onTap: () {
                                 this.widget.onTap(items.indexOf(f));
@@ -91,7 +95,8 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
                                     Text(
                                       '${f.title}',
                                       style: TextStyle(
-                                          color: widget.currentIndex == items.indexOf(f) ? widget.selectedItemColor : widget.unselectedItemColor, fontSize: widget.fontSize),
+                                          color: widget.currentIndex == items.indexOf(f) ? widget.selectedItemColor : widget.unselectedItemColor,
+                                          fontSize: widget.fontSize),
                                     ),
                                   ],
                                 ),

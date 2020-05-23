@@ -7,7 +7,7 @@ Fully customizable floating bottom navigation package for flutter.
 
 ```yaml
 dependencies:
-  floating_bottom_navigation_bar: ^1.0.2
+  floating_bottom_navigation_bar: ^1.2.0
 ```
 
 ### ⚡️ Import
@@ -43,7 +43,7 @@ import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.da
 ```
 
 
-<img width="450" height="900" src="https://github.com/godlessturtle/flutter_floating_bottom_navigation_bar/blob/master/image.png?raw=true">
+<img width="450" height="900" src="https://github.com/right7ctrl/flutter_floating_bottom_navigation_bar/blob/master/image.png?raw=true">
 
 ### ❗️ Note
 
