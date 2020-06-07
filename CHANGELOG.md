@@ -1,6 +1,6 @@
 ## [1.3.0] - Customization options
 
-* Added Item Builder to build your own widgets
+* Added Item Builder to build your own widgets [@Saifallak](https://github.com/Saifallak).
 
 ## [1.2.0] - Customization options
 
