@@ -16,6 +16,9 @@ class FloatingNavbar extends StatefulWidget {
   final double itemBorderRadius;
   final double borderRadius;
   final ItemBuilder itemBuilder;
+  final EdgeInsetsGeometry margin;
+  final EdgeInsetsGeometry padding;
+  final double width;
 
   FloatingNavbar({
     Key key,
@@ -31,9 +34,13 @@ class FloatingNavbar extends StatefulWidget {
     this.borderRadius = 8,
     this.itemBorderRadius = 8,
     this.unselectedItemColor = Colors.white,
+    this.margin = const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+    this.padding = const EdgeInsets.only(bottom: 8, top: 8),
+    this.width = double.infinity,
   })  : assert(items.length > 1),
         assert(items.length <= 5),
         assert(currentIndex <= items.length),
+        assert(width > 50),
         itemBuilder = itemBuilder ??
             _defaultItemBuilder(
               unselectedItemColor: unselectedItemColor,
@@ -66,14 +73,14 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            padding: widget.margin,
             child: Container(
-              padding: EdgeInsets.only(bottom: 8, top: 8),
+              padding: widget.padding,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(widget.borderRadius),
                 color: widget.backgroundColor,
               ),
-              width: double.infinity,
+              width: widget.width,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Row(
