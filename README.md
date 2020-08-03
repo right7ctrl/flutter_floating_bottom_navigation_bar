@@ -3,19 +3,6 @@
 
 Fully customizable floating bottom navigation package for flutter.
 
-## 🎖 Installing
-
-```yaml
-dependencies:
-  floating_bottom_navigation_bar: ^1.2.0
-```
-
-### ⚡️ Import
-
-```dart
-import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
-```
-
 ## 🎮 How To Use
 
 ```dart
