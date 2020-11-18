@@ -19,6 +19,7 @@ class FloatingNavbar extends StatefulWidget {
   final EdgeInsetsGeometry margin;
   final EdgeInsetsGeometry padding;
   final double width;
+  final double elevation;
 
   FloatingNavbar({
     Key key,
@@ -37,6 +38,7 @@ class FloatingNavbar extends StatefulWidget {
     this.margin = const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
     this.padding = const EdgeInsets.only(bottom: 8, top: 8),
     this.width = double.infinity,
+    this.elevation = 0.0,
   })  : assert(items.length > 1),
         assert(items.length <= 5),
         assert(currentIndex <= items.length),
@@ -68,7 +70,7 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
   Widget build(BuildContext context) {
     return BottomAppBar(
       color: Colors.transparent,
-      elevation: 0,
+      elevation: widget.elevation,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
