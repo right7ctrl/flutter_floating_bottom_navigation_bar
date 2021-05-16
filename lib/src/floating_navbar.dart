@@ -4,29 +4,29 @@ import 'package:flutter/material.dart';
 typedef Widget ItemBuilder(BuildContext context, FloatingNavbarItem items);
 
 class FloatingNavbar extends StatefulWidget {
-  final List<FloatingNavbarItem> items;
-  final int currentIndex;
-  final void Function(int val) onTap;
-  final Color selectedBackgroundColor;
-  final Color selectedItemColor;
-  final Color unselectedItemColor;
-  final Color backgroundColor;
-  final double fontSize;
-  final double iconSize;
-  final double itemBorderRadius;
-  final double borderRadius;
-  final ItemBuilder itemBuilder;
-  final EdgeInsetsGeometry margin;
-  final EdgeInsetsGeometry padding;
-  final double width;
-  final double elevation;
+  final List<FloatingNavbarItem>? items;
+  final int? currentIndex;
+  final void Function(int val)? onTap;
+  final Color? selectedBackgroundColor;
+  final Color? selectedItemColor;
+  final Color? unselectedItemColor;
+  final Color? backgroundColor;
+  final double? fontSize;
+  final double? iconSize;
+  final double? itemBorderRadius;
+  final double? borderRadius;
+  final ItemBuilder? itemBuilder;
+  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? padding;
+  final double? width;
+  final double? elevation;
 
   FloatingNavbar({
-    Key key,
+    Key? key,
     @required this.items,
     @required this.currentIndex,
     @required this.onTap,
-    ItemBuilder itemBuilder,
+    ItemBuilder? itemBuilder,
     this.backgroundColor = Colors.black,
     this.selectedBackgroundColor = Colors.white,
     this.selectedItemColor = Colors.black,
@@ -39,11 +39,11 @@ class FloatingNavbar extends StatefulWidget {
     this.padding = const EdgeInsets.only(bottom: 8, top: 8),
     this.width = double.infinity,
     this.elevation = 0.0,
-  })  : assert(items.length > 1),
-        assert(items.length <= 5),
-        assert(currentIndex <= items.length),
-        assert(width > 50),
-        itemBuilder = itemBuilder ??
+  })  : assert(items!.length > 1),
+        assert(items!.length <= 5),
+        assert(currentIndex! <= items!.length),
+        assert(width! > 50),
+        this.itemBuilder = itemBuilder ??
             _defaultItemBuilder(
               unselectedItemColor: unselectedItemColor,
               selectedItemColor: selectedItemColor,
@@ -64,7 +64,7 @@ class FloatingNavbar extends StatefulWidget {
 }
 
 class _FloatingNavbarState extends State<FloatingNavbar> {
-  List<FloatingNavbarItem> get items => widget.items;
+  List<FloatingNavbarItem> get items => widget.items!;
 
   @override
   Widget build(BuildContext context) {
@@ -75,11 +75,11 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Padding(
-            padding: widget.margin,
+            padding: widget.margin!,
             child: Container(
               padding: widget.padding,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(widget.borderRadius),
+                borderRadius: BorderRadius.circular(widget.borderRadius!),
                 color: widget.backgroundColor,
               ),
               width: widget.width,
@@ -89,7 +89,7 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   mainAxisSize: MainAxisSize.max,
                   children: items.map((f) {
-                    return widget.itemBuilder(context, f);
+                    return widget.itemBuilder!(context, f);
                   }).toList(),
                 ),
               ),
@@ -102,17 +102,17 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
 }
 
 ItemBuilder _defaultItemBuilder({
-  Function(int val) onTap,
-  List<FloatingNavbarItem> items,
-  int currentIndex,
-  Color selectedBackgroundColor,
-  Color selectedItemColor,
-  Color unselectedItemColor,
-  Color backgroundColor,
-  double fontSize,
-  double iconSize,
-  double itemBorderRadius,
-  double borderRadius,
+  Function(int val)? onTap,
+  List<FloatingNavbarItem>? items,
+  int? currentIndex,
+  Color? selectedBackgroundColor,
+  Color? selectedItemColor,
+  Color? unselectedItemColor,
+  Color? backgroundColor,
+  double? fontSize,
+  double? iconSize,
+  double? itemBorderRadius,
+  double? borderRadius,
 }) {
   return (BuildContext context, FloatingNavbarItem item) => Expanded(
         child: Row(
@@ -122,13 +122,13 @@ ItemBuilder _defaultItemBuilder({
             AnimatedContainer(
               duration: Duration(milliseconds: 300),
               decoration: BoxDecoration(
-                  color: currentIndex == items.indexOf(item)
+                  color: currentIndex == items!.indexOf(item)
                       ? selectedBackgroundColor
                       : backgroundColor,
-                  borderRadius: BorderRadius.circular(itemBorderRadius)),
+                  borderRadius: BorderRadius.circular(itemBorderRadius!)),
               child: InkWell(
                 onTap: () {
-                  onTap(items.indexOf(item));
+                  onTap!(items.indexOf(item));
                 },
                 borderRadius: BorderRadius.circular(8),
                 child: Container(
