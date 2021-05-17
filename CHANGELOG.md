@@ -1,4 +1,6 @@
-## [1.5.0] - Migrate null-safety (@ajomuch92)
+## [1.5.1] - Update license
+
+## [1.5.0] - Migrate null-safety [@ajomuch92](https://github.com/ajomuch92)
 
 ## [1.4.0] - Customization options
 
