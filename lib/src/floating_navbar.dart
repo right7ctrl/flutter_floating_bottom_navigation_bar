@@ -126,7 +126,7 @@ ItemBuilder _defaultItemBuilder({
               decoration: BoxDecoration(
                   color: currentIndex == items!.indexOf(item)
                       ? selectedBackgroundColor
-                      : backgroundColor,
+                      : Colors.transparent,
                   borderRadius: BorderRadius.circular(itemBorderRadius!)),
               child: InkWell(
                 onTap: () {
@@ -134,8 +134,11 @@ ItemBuilder _defaultItemBuilder({
                 },
                 borderRadius: BorderRadius.circular(8),
                 child: Container(
-                  width: width.isFinite ? (width / items.length - 8) : MediaQuery.of(context).size.width / items.length - 24,
-                  padding: EdgeInsets.symmetric(horizontal: 4, vertical: item.title != null ? 4 : 8),
+                  width: width.isFinite
+                      ? (width / items.length - 8)
+                      : MediaQuery.of(context).size.width / items.length - 24,
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 4, vertical: item.title != null ? 4 : 8),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -148,16 +151,17 @@ ItemBuilder _defaultItemBuilder({
                             : unselectedItemColor,
                         size: iconSize,
                       ),
-                      if (item.title != null) Text(
-                        '${item.title}',
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: currentIndex == items.indexOf(item)
-                              ? selectedItemColor
-                              : unselectedItemColor,
-                          fontSize: fontSize,
+                      if (item.title != null)
+                        Text(
+                          '${item.title}',
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: currentIndex == items.indexOf(item)
+                                ? selectedItemColor
+                                : unselectedItemColor,
+                            fontSize: fontSize,
+                          ),
                         ),
-                      ),
                     ],
                   ),
                 ),
