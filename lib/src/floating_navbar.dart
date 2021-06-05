@@ -144,13 +144,15 @@ ItemBuilder _defaultItemBuilder({
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Icon(
-                        item.icon,
-                        color: currentIndex == items.indexOf(item)
-                            ? selectedItemColor
-                            : unselectedItemColor,
-                        size: iconSize,
-                      ),
+                      item.customWidget == null
+                          ? Icon(
+                              item.icon,
+                              color: currentIndex == items.indexOf(item)
+                                  ? selectedItemColor
+                                  : unselectedItemColor,
+                              size: iconSize,
+                            )
+                          : item.customWidget!,
                       if (item.title != null)
                         Text(
                           '${item.title}',
