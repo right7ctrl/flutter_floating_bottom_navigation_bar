@@ -1,3 +1,10 @@
+## [1.5.2] [@prateekmedia](https://github.com/prateekmedia)
+
+- Fixes Overflow error when setting width
+- Don't show title if it is null
+- Set default unselected items background color to transparent
+- Make customWidget work, it will replace icon if it is not null
+
 ## [1.5.1] - Update license
 
 ## [1.5.0] - Migrate null-safety [@ajomuch92](https://github.com/ajomuch92)
