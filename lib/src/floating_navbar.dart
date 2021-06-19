@@ -18,7 +18,7 @@ class FloatingNavbar extends StatefulWidget {
   final ItemBuilder? itemBuilder;
   final EdgeInsetsGeometry? margin;
   final EdgeInsetsGeometry? padding;
-  final double? width;
+  final double width;
   final double? elevation;
 
   FloatingNavbar({
@@ -42,13 +42,14 @@ class FloatingNavbar extends StatefulWidget {
   })  : assert(items!.length > 1),
         assert(items!.length <= 5),
         assert(currentIndex! <= items!.length),
-        assert(width! > 50),
+        assert(width > 50),
         this.itemBuilder = itemBuilder ??
             _defaultItemBuilder(
               unselectedItemColor: unselectedItemColor,
               selectedItemColor: selectedItemColor,
               borderRadius: borderRadius,
               fontSize: fontSize,
+              width: width,
               backgroundColor: backgroundColor,
               currentIndex: currentIndex,
               iconSize: iconSize,
@@ -109,6 +110,7 @@ ItemBuilder _defaultItemBuilder({
   Color? selectedItemColor,
   Color? unselectedItemColor,
   Color? backgroundColor,
+  double width = double.infinity,
   double? fontSize,
   double? iconSize,
   double? itemBorderRadius,
@@ -124,7 +126,7 @@ ItemBuilder _defaultItemBuilder({
               decoration: BoxDecoration(
                   color: currentIndex == items!.indexOf(item)
                       ? selectedBackgroundColor
-                      : backgroundColor,
+                      : Colors.transparent,
                   borderRadius: BorderRadius.circular(itemBorderRadius!)),
               child: InkWell(
                 onTap: () {
@@ -132,33 +134,36 @@ ItemBuilder _defaultItemBuilder({
                 },
                 borderRadius: BorderRadius.circular(8),
                 child: Container(
-                  //max-width for each item
-                  //24 is the padding from left and right
-                  width: MediaQuery.of(context).size.width *
-                          (100 / (items.length * 100)) -
-                      24,
-                  padding: EdgeInsets.all(4),
+                  width: width.isFinite
+                      ? (width / items.length - 8)
+                      : MediaQuery.of(context).size.width / items.length - 24,
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 4, vertical: item.title != null ? 4 : 8),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Icon(
-                        item.icon,
-                        color: currentIndex == items.indexOf(item)
-                            ? selectedItemColor
-                            : unselectedItemColor,
-                        size: iconSize,
-                      ),
-                      Text(
-                        '${item.title}',
-                        style: TextStyle(
-                          color: currentIndex == items.indexOf(item)
-                              ? selectedItemColor
-                              : unselectedItemColor,
-                          fontSize: fontSize,
+                      item.customWidget == null
+                          ? Icon(
+                              item.icon,
+                              color: currentIndex == items.indexOf(item)
+                                  ? selectedItemColor
+                                  : unselectedItemColor,
+                              size: iconSize,
+                            )
+                          : item.customWidget!,
+                      if (item.title != null)
+                        Text(
+                          '${item.title}',
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: currentIndex == items.indexOf(item)
+                                ? selectedItemColor
+                                : unselectedItemColor,
+                            fontSize: fontSize,
+                          ),
                         ),
-                      ),
                     ],
                   ),
                 ),
