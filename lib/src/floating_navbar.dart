@@ -1,31 +1,32 @@
 import 'package:floating_bottom_navigation_bar/src/floating_navbar_item.dart';
 import 'package:flutter/material.dart';
 
-typedef Widget ItemBuilder(BuildContext context, FloatingNavbarItem items);
+typedef Widget ItemBuilder(
+    BuildContext context, int index, FloatingNavbarItem items);
 
 class FloatingNavbar extends StatefulWidget {
-  final List<FloatingNavbarItem>? items;
-  final int? currentIndex;
+  final List<FloatingNavbarItem> items;
+  final int currentIndex;
   final void Function(int val)? onTap;
-  final Color? selectedBackgroundColor;
+  final Color selectedBackgroundColor;
   final Color? selectedItemColor;
   final Color? unselectedItemColor;
-  final Color? backgroundColor;
-  final double? fontSize;
-  final double? iconSize;
-  final double? itemBorderRadius;
-  final double? borderRadius;
-  final ItemBuilder? itemBuilder;
-  final EdgeInsetsGeometry? margin;
-  final EdgeInsetsGeometry? padding;
+  final Color backgroundColor;
+  final double fontSize;
+  final double iconSize;
+  final double itemBorderRadius;
+  final double borderRadius;
+  final ItemBuilder itemBuilder;
+  final EdgeInsetsGeometry margin;
+  final EdgeInsetsGeometry padding;
   final double width;
-  final double? elevation;
+  final double elevation;
 
   FloatingNavbar({
     Key? key,
-    @required this.items,
-    @required this.currentIndex,
-    @required this.onTap,
+    required this.items,
+    required this.currentIndex,
+    required this.onTap,
     ItemBuilder? itemBuilder,
     this.backgroundColor = Colors.black,
     this.selectedBackgroundColor = Colors.white,
@@ -35,13 +36,13 @@ class FloatingNavbar extends StatefulWidget {
     this.borderRadius = 8,
     this.itemBorderRadius = 8,
     this.unselectedItemColor = Colors.white,
-    this.margin = const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-    this.padding = const EdgeInsets.only(bottom: 8, top: 8),
+    this.margin = const EdgeInsets.all(8),
+    this.padding = const EdgeInsets.symmetric(vertical: 8),
     this.width = double.infinity,
     this.elevation = 0.0,
-  })  : assert(items!.length > 1),
-        assert(items!.length <= 5),
-        assert(currentIndex! <= items!.length),
+  })  : assert(items.length > 1),
+        assert(items.length <= 5),
+        assert(currentIndex <= items.length),
         assert(width > 50),
         this.itemBuilder = itemBuilder ??
             _defaultItemBuilder(
@@ -65,7 +66,7 @@ class FloatingNavbar extends StatefulWidget {
 }
 
 class _FloatingNavbarState extends State<FloatingNavbar> {
-  List<FloatingNavbarItem> get items => widget.items!;
+  List<FloatingNavbarItem> get items => widget.items;
 
   @override
   Widget build(BuildContext context) {
@@ -75,24 +76,26 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Padding(
-            padding: widget.margin!,
-            child: Container(
-              padding: widget.padding,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(widget.borderRadius!),
-                color: widget.backgroundColor,
-              ),
-              width: widget.width,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  mainAxisSize: MainAxisSize.max,
-                  children: items.map((f) {
-                    return widget.itemBuilder!(context, f);
-                  }).toList(),
-                ),
+          Container(
+            padding: widget.padding,
+            margin: widget.margin,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(widget.borderRadius),
+              color: widget.backgroundColor,
+            ),
+            width: widget.width,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisSize: MainAxisSize.max,
+                children: items
+                    .asMap()
+                    .map((i, f) {
+                      return MapEntry(i, widget.itemBuilder(context, i, f));
+                    })
+                    .values
+                    .toList(),
               ),
             ),
           ),
@@ -104,7 +107,7 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
 
 ItemBuilder _defaultItemBuilder({
   Function(int val)? onTap,
-  List<FloatingNavbarItem>? items,
+  required List<FloatingNavbarItem> items,
   int? currentIndex,
   Color? selectedBackgroundColor,
   Color? selectedItemColor,
@@ -116,7 +119,7 @@ ItemBuilder _defaultItemBuilder({
   double? itemBorderRadius,
   double? borderRadius,
 }) {
-  return (BuildContext context, FloatingNavbarItem item) => Expanded(
+  return (BuildContext context, int index, FloatingNavbarItem item) => Expanded(
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -124,13 +127,13 @@ ItemBuilder _defaultItemBuilder({
             AnimatedContainer(
               duration: Duration(milliseconds: 300),
               decoration: BoxDecoration(
-                  color: currentIndex == items!.indexOf(item)
+                  color: currentIndex == index
                       ? selectedBackgroundColor
                       : Colors.transparent,
                   borderRadius: BorderRadius.circular(itemBorderRadius!)),
               child: InkWell(
                 onTap: () {
-                  onTap!(items.indexOf(item));
+                  onTap!(index);
                 },
                 borderRadius: BorderRadius.circular(8),
                 child: Container(
@@ -147,7 +150,7 @@ ItemBuilder _defaultItemBuilder({
                       item.customWidget == null
                           ? Icon(
                               item.icon,
-                              color: currentIndex == items.indexOf(item)
+                              color: currentIndex == index
                                   ? selectedItemColor
                                   : unselectedItemColor,
                               size: iconSize,
@@ -158,7 +161,7 @@ ItemBuilder _defaultItemBuilder({
                           '${item.title}',
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            color: currentIndex == items.indexOf(item)
+                            color: currentIndex == index
                                 ? selectedItemColor
                                 : unselectedItemColor,
                             fontSize: fontSize,
