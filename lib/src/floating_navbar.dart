@@ -72,7 +72,7 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
   Widget build(BuildContext context) {
     return BottomAppBar(
       color: Colors.transparent,
-      elevation: widget.elevation,
+      elevation: 0.0,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -84,18 +84,21 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
               color: widget.backgroundColor,
             ),
             width: widget.width,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                mainAxisSize: MainAxisSize.max,
-                children: items
-                    .asMap()
-                    .map((i, f) {
-                      return MapEntry(i, widget.itemBuilder(context, i, f));
-                    })
-                    .values
-                    .toList(),
+            child: Card(
+              elevation: widget.elevation,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisSize: MainAxisSize.max,
+                  children: items
+                      .asMap()
+                      .map((i, f) {
+                        return MapEntry(i, widget.itemBuilder(context, i, f));
+                      })
+                      .values
+                      .toList(),
+                ),
               ),
             ),
           ),
