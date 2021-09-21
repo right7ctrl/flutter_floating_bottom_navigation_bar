@@ -20,6 +20,7 @@ class FloatingNavbar extends StatefulWidget {
   final EdgeInsetsGeometry margin;
   final EdgeInsetsGeometry padding;
   final double width;
+  final double height;
   final double elevation;
 
   FloatingNavbar({
@@ -39,6 +40,7 @@ class FloatingNavbar extends StatefulWidget {
     this.margin = const EdgeInsets.all(8),
     this.padding = const EdgeInsets.symmetric(vertical: 8),
     this.width = double.infinity,
+    this.height = 100.0,
     this.elevation = 0.0,
   })  : assert(items.length > 1),
         assert(items.length <= 5),
@@ -72,7 +74,7 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
   Widget build(BuildContext context) {
     return BottomAppBar(
       color: Colors.transparent,
-      elevation: widget.elevation,
+      elevation: 0.0,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -84,18 +86,25 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
               color: widget.backgroundColor,
             ),
             width: widget.width,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                mainAxisSize: MainAxisSize.max,
-                children: items
-                    .asMap()
-                    .map((i, f) {
-                      return MapEntry(i, widget.itemBuilder(context, i, f));
-                    })
-                    .values
-                    .toList(),
+            height: widget.height,
+            child: Card(
+              elevation: widget.elevation,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(widget.borderRadius),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisSize: MainAxisSize.max,
+                  children: items
+                      .asMap()
+                      .map((i, f) {
+                    return MapEntry(i, widget.itemBuilder(context, i, f));
+                  })
+                      .values
+                      .toList(),
+                ),
               ),
             ),
           ),
@@ -120,59 +129,59 @@ ItemBuilder _defaultItemBuilder({
   double? borderRadius,
 }) {
   return (BuildContext context, int index, FloatingNavbarItem item) => Expanded(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            AnimatedContainer(
-              duration: Duration(milliseconds: 300),
-              decoration: BoxDecoration(
-                  color: currentIndex == index
-                      ? selectedBackgroundColor
-                      : Colors.transparent,
-                  borderRadius: BorderRadius.circular(itemBorderRadius!)),
-              child: InkWell(
-                onTap: () {
-                  onTap!(index);
-                },
-                borderRadius: BorderRadius.circular(8),
-                child: Container(
-                  width: width.isFinite
-                      ? (width / items.length - 8)
-                      : MediaQuery.of(context).size.width / items.length - 24,
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 4, vertical: item.title != null ? 4 : 8),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      item.customWidget == null
-                          ? Icon(
-                              item.icon,
-                              color: currentIndex == index
-                                  ? selectedItemColor
-                                  : unselectedItemColor,
-                              size: iconSize,
-                            )
-                          : item.customWidget!,
-                      if (item.title != null)
-                        Text(
-                          '${item.title}',
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: currentIndex == index
-                                ? selectedItemColor
-                                : unselectedItemColor,
-                            fontSize: fontSize,
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        AnimatedContainer(
+          duration: Duration(milliseconds: 300),
+          decoration: BoxDecoration(
+              color: currentIndex == index
+                  ? selectedBackgroundColor
+                  : Colors.transparent,
+              borderRadius: BorderRadius.circular(itemBorderRadius!)),
+          child: InkWell(
+            onTap: () {
+              onTap!(index);
+            },
+            borderRadius: BorderRadius.circular(8),
+            child: Container(
+              width: width.isFinite
+                  ? (width / items.length - 8)
+                  : MediaQuery.of(context).size.width / items.length - 24,
+              padding: EdgeInsets.symmetric(
+                  horizontal: 4, vertical: item.title != null ? 4 : 8),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  item.customWidget == null
+                      ? Icon(
+                    item.icon,
+                    color: currentIndex == index
+                        ? selectedItemColor
+                        : unselectedItemColor,
+                    size: iconSize,
+                  )
+                      : item.customWidget!,
+                  if (item.title != null)
+                    Text(
+                      '${item.title}',
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: currentIndex == index
+                            ? selectedItemColor
+                            : unselectedItemColor,
+                        fontSize: fontSize,
+                      ),
+                    ),
+                ],
               ),
             ),
-          ],
+          ),
         ),
-      );
+      ],
+    ),
+  );
 }
