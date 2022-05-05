@@ -157,27 +157,25 @@ ItemBuilder _defaultItemBuilder({
                     ),
                     Align(
                       alignment: Alignment.bottomCenter,
-                      child: ClipPath(
-                        clipper: CustomClip(),
-                        child: Container(
-                          width: 30,
-                          height: 10,
-                          color: currentIndex == items.indexOf(item) ? selectedItemColor : Colors.transparent,
-                        ),
-                      ),
+                      child: item.title != ''
+                          ? Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                item.title,
+                                style: TextStyle(
+                                  color: currentIndex == items.indexOf(item) ? selectedItemColor : unselectedItemColor,
+                                ),
+                              ),
+                            )
+                          : ClipPath(
+                              clipper: CustomClip(),
+                              child: Container(
+                                width: 30,
+                                height: 10,
+                                color: currentIndex == items.indexOf(item) ? selectedItemColor : Colors.transparent,
+                              ),
+                            ),
                     ),
-                    // Padding(
-                    //   padding: const EdgeInsets.symmetric(vertical: 5),
-                    //   child: Text(
-                    //     item.title!,
-                    //     overflow: TextOverflow.ellipsis,
-                    //     style: TextStyle(
-                    //       color: currentIndex == items.indexOf(item) ? selectedItemColor : unselectedItemColor,
-                    //       fontSize: fontSize,
-                    //     ),
-                    //   ),
-
-                    // ),
                   ],
                 ),
               ),

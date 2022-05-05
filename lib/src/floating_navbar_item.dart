@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FloatingNavbarItem {
-  final String? title;
+  final String title;
   final IconData? selectedIcon;
   final IconData? unselectedIcon;
 
@@ -10,7 +10,7 @@ class FloatingNavbarItem {
   FloatingNavbarItem({
     this.selectedIcon,
     this.unselectedIcon,
-    this.title,
+    this.title = '',
     this.customWidget,
   }) : assert(selectedIcon != null || customWidget != null);
 }
