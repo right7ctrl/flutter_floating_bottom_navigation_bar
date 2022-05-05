@@ -63,7 +63,7 @@ To try this, uncomment the title attribute in FloatingNavbarItem
 ```
 
 
-<img width="450" height="900" src="https://github.com/right7ctrl/flutter_floating_bottom_navigation_bar/blob/master/image.png?raw=true">
+
 
 ### ❗️ Note
 
