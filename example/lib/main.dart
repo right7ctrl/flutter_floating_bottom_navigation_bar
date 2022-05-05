@@ -10,38 +10,50 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int _index = 0;
+  int selectedIndex = 0;
+  final List<Widget> pages = [
+    const Scaffold(),
+    const Scaffold(),
+    const Scaffold(),
+    const Scaffold(),
+    const Scaffold(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Floating NavBar Example',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Floating NavBar Example'),
-          centerTitle: true,
-        ),
-        //If you want to show body behind the navbar, it should be true
-        extendBody: true,
-        body: Center(
-          child: Text(
-            "index: $_index",
-            style: TextStyle(
-              fontSize: 52,
-            ),
+        title: 'Floating NavBar Example',
+        home: Scaffold(
+          body: pages[selectedIndex],
+          bottomNavigationBar: FloatingNavbar(
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            selectedBackgroundColor: Colors.transparent,
+            backgroundColor: Palette.bottomNavBarColor,
+            selectedItemColor: Palette.darkGrey,
+            unselectedItemColor: Palette.lightGrey,
+            borderRadius: 10,
+            onTap: (int val) => setState(() => selectedIndex = val),
+            currentIndex: selectedIndex,
+            items: [
+              FloatingNavbarItem(
+                selectedIcon: Icons.home,
+                unselectedIcon: Icons.home_outlined,
+              ),
+              FloatingNavbarItem(
+                selectedIcon: Icons.ac_unit,
+                unselectedIcon: Icons.ac_unit,
+              ),
+              FloatingNavbarItem(selectedIcon: Icons.chat_bubble, unselectedIcon: Icons.chat_bubble_outline),
+              FloatingNavbarItem(selectedIcon: Icons.person, unselectedIcon: Icons.person_off_outlined),
+              FloatingNavbarItem(selectedIcon: Icons.notifications, unselectedIcon: Icons.notifications_none),
+            ],
           ),
-        ),
-        bottomNavigationBar: FloatingNavbar(
-          onTap: (int val) => setState(() => _index = val),
-          currentIndex: _index,
-          items: [
-            FloatingNavbarItem(icon: Icons.home, title: 'Home'),
-            FloatingNavbarItem(icon: Icons.explore, title: 'Explore'),
-            FloatingNavbarItem(icon: Icons.chat_bubble_outline, title: 'Chats'),
-            FloatingNavbarItem(icon: Icons.settings, title: 'Settings'),
-          ],
-        ),
-      ),
-    );
+        ));
   }
+}
+
+mixin Palette {
+  static Color bottomNavBarColor = const Color(0xFFFAFAFA);
+  static Color lightGrey = const Color(0xFFB8BDBF);
+  static Color darkGrey = const Color(0xFF353535);
 }
