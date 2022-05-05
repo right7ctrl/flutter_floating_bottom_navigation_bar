@@ -5,11 +5,11 @@ Fully customizable floating bottom navigation package for flutter.
 
 USAGE
 
-There is two type of bottom nav bar widget.\n
-You can either use 'title' and title displayes at the bottom of the icons\n
-OR\n
-You dont use 'title' attribute and the half-circle appears at the bottom of the selected icon.\n
-To try this, uncomment the title attribute in FloatingNavbarItem\n
+There is two type of bottom nav bar widget. <br /> 
+You can either use 'title' and title displayes at the bottom of the icons <br /> 
+OR <br /> 
+You dont use 'title' attribute and the half-circle appears at the bottom of the selected icon. <br /> 
+To try this, uncomment the title attribute in FloatingNavbarItem <br /> 
 
 ## 🎮 How To Use
 
@@ -63,9 +63,9 @@ To try this, uncomment the title attribute in FloatingNavbarItem\n
 ```
 
 
-<img width="450" height="900" src="https://github.com/montaag/flutter_floating_bottom_navigation_bar/blob/master/with_title.png">
+<img width="450" height="700" src="https://github.com/montaag/flutter_floating_bottom_navigation_bar/blob/master/with_title.png">
 
-<img width="450" height="900" src="https://github.com/montaag/flutter_floating_bottom_navigation_bar/blob/master/without_title.png">
+<img width="450" height="700" src="https://github.com/montaag/flutter_floating_bottom_navigation_bar/blob/master/without_title.png">
 ### ❗️ Note
 
 - Pull requests are welcomed, especially the animations :)
