@@ -166,14 +166,18 @@ ItemBuilder _defaultItemBuilder({
                         ),
                       ),
                     ),
-                    Text(
-                      item.title!,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: currentIndex == items.indexOf(item) ? selectedItemColor : unselectedItemColor,
-                        fontSize: fontSize,
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(vertical: 5),
+                    //   child: Text(
+                    //     item.title!,
+                    //     overflow: TextOverflow.ellipsis,
+                    //     style: TextStyle(
+                    //       color: currentIndex == items.indexOf(item) ? selectedItemColor : unselectedItemColor,
+                    //       fontSize: fontSize,
+                    //     ),
+                    //   ),
+
+                    // ),
                   ],
                 ),
               ),

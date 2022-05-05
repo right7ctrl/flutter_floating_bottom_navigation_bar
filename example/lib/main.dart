@@ -12,11 +12,26 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   int selectedIndex = 0;
   final List<Widget> pages = [
-    const Scaffold(),
-    const Scaffold(),
-    const Scaffold(),
-    const Scaffold(),
-    const Scaffold(),
+    const Scaffold(
+      body: Center(
+        child: Text("Home"),
+      ),
+    ),
+    const Scaffold(
+      body: Center(
+        child: Text("Message"),
+      ),
+    ),
+    const Scaffold(
+      body: Center(
+        child: Text("User"),
+      ),
+    ),
+    const Scaffold(
+      body: Center(
+        child: Text("Notification"),
+      ),
+    ),
   ];
 
   @override
@@ -38,14 +53,23 @@ class _MyAppState extends State<MyApp> {
               FloatingNavbarItem(
                 selectedIcon: Icons.home,
                 unselectedIcon: Icons.home_outlined,
+                title: "Home",
               ),
               FloatingNavbarItem(
-                selectedIcon: Icons.ac_unit,
-                unselectedIcon: Icons.ac_unit,
+                selectedIcon: Icons.chat_bubble,
+                unselectedIcon: Icons.chat_bubble_outline,
+                title: "Message",
               ),
-              FloatingNavbarItem(selectedIcon: Icons.chat_bubble, unselectedIcon: Icons.chat_bubble_outline),
-              FloatingNavbarItem(selectedIcon: Icons.person, unselectedIcon: Icons.person_off_outlined),
-              FloatingNavbarItem(selectedIcon: Icons.notifications, unselectedIcon: Icons.notifications_none),
+              FloatingNavbarItem(
+                selectedIcon: Icons.person,
+                unselectedIcon: Icons.person_outline,
+                title: "Account",
+              ),
+              FloatingNavbarItem(
+                selectedIcon: Icons.notifications,
+                unselectedIcon: Icons.notifications_none,
+                title: "Notifications",
+              ),
             ],
           ),
         ));
