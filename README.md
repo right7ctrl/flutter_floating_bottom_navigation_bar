@@ -62,11 +62,10 @@ To try this, uncomment the title attribute in FloatingNavbarItem
 
 ```
 
-![alt text](https://github.com/montaag/flutter_floating_bottom_navigation_bar/blob/master/with_title.png)
-![alt text](https://github.com/montaag/flutter_floating_bottom_navigation_bar/blob/master/without_title.png)
 
+<img width="450" height="900" src="https://github.com/montaag/flutter_floating_bottom_navigation_bar/blob/master/with_title.png">
 
-
+<img width="450" height="900" src="https://github.com/montaag/flutter_floating_bottom_navigation_bar/blob/master/without_title.png">
 ### ❗️ Note
 
 - Pull requests are welcomed, especially the animations :)
