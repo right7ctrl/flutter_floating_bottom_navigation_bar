@@ -129,7 +129,7 @@ ItemBuilder _defaultItemBuilder({
               decoration: BoxDecoration(
                   color: currentIndex == index
                       ? selectedBackgroundColor
-                      : Colors.transparent,
+                      : backgroundColor,
                   borderRadius: BorderRadius.circular(itemBorderRadius!)),
               child: InkWell(
                 onTap: () {
