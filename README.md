@@ -1,7 +1,15 @@
-# ✨ Flutter Floating Bottom Navigation Bar
+# ✨ Flutter Floating Bottom Navigation Bar WITH SOME UI UPDATES ✨
 
 
 Fully customizable floating bottom navigation package for flutter.
+
+USAGE
+
+There is two type of bottom nav bar widget. <br /> 
+You can either use 'title' and title displayes at the bottom of the icons <br /> 
+OR <br /> 
+You dont use 'title' attribute and the half-circle appears at the bottom of the selected icon. <br /> 
+To try this, uncomment the title attribute in FloatingNavbarItem <br /> 
 
 ## 🎮 How To Use
 
@@ -13,15 +21,40 @@ Fully customizable floating bottom navigation package for flutter.
           //If you want to show body behind the navbar, it should be true
           extendBody: true,
           bottomNavigationBar: FloatingNavbar(
-            onTap: (int val) {
-              //returns tab id which is user tapped
-            },
-            currentIndex: 0,
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            selectedBackgroundColor: Colors.transparent,
+            backgroundColor: Palette.bottomNavBarColor,
+            selectedItemColor: Palette.darkGrey,
+            unselectedItemColor: Palette.lightGrey,
+            borderRadius: 10,
+            onTap: (int val) => setState(() => selectedIndex = val),
+            currentIndex: selectedIndex,
             items: [
-              FloatingNavbarItem(icon: Icons.home, title: 'Home'),
-              FloatingNavbarItem(icon: Icons.explore, title: 'Explore'),
-              FloatingNavbarItem(icon: Icons.chat_bubble_outline, title: 'Chats'),
-              FloatingNavbarItem(icon: Icons.settings, title: 'Settings'),
+              FloatingNavbarItem(
+                selectedIcon: Icons.home,
+                unselectedIcon: Icons.home_outlined,
+                //title: "Home",
+              ),
+              FloatingNavbarItem(
+                selectedIcon: Icons.chat_bubble,
+                unselectedIcon: Icons.chat_bubble_outline,
+                //title: "Chat",
+              ),
+              FloatingNavbarItem(
+                selectedIcon: Icons.person,
+                unselectedIcon: Icons.person_outline,
+                //title: "User",
+              ),
+              FloatingNavbarItem(
+                selectedIcon: Icons.notifications,
+                unselectedIcon: Icons.notifications_none,
+                //title: "Alert",
+              ),
+              FloatingNavbarItem(
+                selectedIcon: Icons.ac_unit,
+                unselectedIcon: Icons.ac_unit,
+                //title: "Other",
+              ),
             ],
           ),
           
@@ -30,8 +63,9 @@ Fully customizable floating bottom navigation package for flutter.
 ```
 
 
-<img width="450" height="900" src="https://github.com/right7ctrl/flutter_floating_bottom_navigation_bar/blob/master/image.png?raw=true">
+<img width="450" height="900" src="https://github.com/montaag/flutter_floating_bottom_navigation_bar/blob/master/with_title.png">
 
+<img width="450" height="900" src="https://github.com/montaag/flutter_floating_bottom_navigation_bar/blob/master/without_title.png">
 ### ❗️ Note
 
 - Pull requests are welcomed, especially the animations :)

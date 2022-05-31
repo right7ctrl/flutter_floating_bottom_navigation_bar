@@ -1,8 +1,7 @@
 import 'package:floating_bottom_navigation_bar/src/floating_navbar_item.dart';
 import 'package:flutter/material.dart';
 
-typedef Widget ItemBuilder(
-    BuildContext context, int index, FloatingNavbarItem items);
+typedef Widget ItemBuilder(BuildContext context, FloatingNavbarItem items);
 
 class FloatingNavbar extends StatefulWidget {
   final List<FloatingNavbarItem> items;
@@ -76,26 +75,38 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Container(
-            padding: widget.padding,
-            margin: widget.margin,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(widget.borderRadius),
-              color: widget.backgroundColor,
-            ),
-            width: widget.width,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                mainAxisSize: MainAxisSize.max,
-                children: items
-                    .asMap()
-                    .map((i, f) {
-                      return MapEntry(i, widget.itemBuilder(context, i, f));
-                    })
-                    .values
-                    .toList(),
+          Padding(
+            padding: widget.margin,
+            child: Container(
+              // padding: widget.padding,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(widget.borderRadius),
+                color: widget.backgroundColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.white.withOpacity(0.5),
+                    offset: const Offset(-6, -6),
+                    blurRadius: 20,
+                  ),
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    offset: const Offset(6, 6),
+                    blurRadius: 20,
+                  ),
+                ],
+              ),
+              width: widget.width,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: items.map((f) {
+                    return widget.itemBuilder(
+                      context,
+                      f,
+                    );
+                  }).toList(),
+                ),
               ),
             ),
           ),
@@ -119,60 +130,82 @@ ItemBuilder _defaultItemBuilder({
   double? itemBorderRadius,
   double? borderRadius,
 }) {
-  return (BuildContext context, int index, FloatingNavbarItem item) => Expanded(
+  return (BuildContext context, FloatingNavbarItem item) => Expanded(
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            AnimatedContainer(
-              duration: Duration(milliseconds: 300),
-              decoration: BoxDecoration(
-                  color: currentIndex == index
-                      ? selectedBackgroundColor
-                      : Colors.transparent,
-                  borderRadius: BorderRadius.circular(itemBorderRadius!)),
-              child: InkWell(
-                onTap: () {
-                  onTap!(index);
-                },
-                borderRadius: BorderRadius.circular(8),
-                child: Container(
-                  width: width.isFinite
-                      ? (width / items.length - 8)
-                      : MediaQuery.of(context).size.width / items.length - 24,
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 4, vertical: item.title != null ? 4 : 8),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      item.customWidget == null
-                          ? Icon(
-                              item.icon,
-                              color: currentIndex == index
-                                  ? selectedItemColor
-                                  : unselectedItemColor,
-                              size: iconSize,
+            InkWell(
+              onTap: () {
+                onTap!(items.indexOf(item));
+              },
+              child: SizedBox(
+                width: width.isFinite ? (width / items.length - 8) : MediaQuery.of(context).size.width / items.length - 30,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Icon(
+                      currentIndex == items.indexOf(item) ? item.selectedIcon : item.unselectedIcon,
+                      color: currentIndex == items.indexOf(item) ? selectedItemColor : unselectedItemColor,
+                      size: iconSize,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: item.title != ''
+                          ? Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                item.title,
+                                style: TextStyle(
+                                  color: currentIndex == items.indexOf(item) ? selectedItemColor : unselectedItemColor,
+                                ),
+                              ),
                             )
-                          : item.customWidget!,
-                      if (item.title != null)
-                        Text(
-                          '${item.title}',
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: currentIndex == index
-                                ? selectedItemColor
-                                : unselectedItemColor,
-                            fontSize: fontSize,
-                          ),
-                        ),
-                    ],
-                  ),
+                          : ClipPath(
+                              clipper: CustomClip(),
+                              child: Container(
+                                width: 30,
+                                height: 10,
+                                color: currentIndex == items.indexOf(item) ? selectedItemColor : Colors.transparent,
+                              ),
+                            ),
+                    ),
+                  ],
                 ),
               ),
             ),
           ],
         ),
       );
+}
+
+class CustomClip extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    const double radius = 15;
+
+    final Path path = Path();
+    path
+      ..moveTo(size.width / 2, 0)
+      ..arcToPoint(Offset(size.width, size.height), radius: const Radius.circular(radius))
+      ..lineTo(0, size.height)
+      ..arcToPoint(
+        Offset(size.width / 2, 0),
+        radius: const Radius.circular(radius),
+      )
+      ..close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return true;
+  }
 }
