@@ -21,6 +21,7 @@ class FloatingNavbar extends StatefulWidget {
   final EdgeInsetsGeometry padding;
   final double width;
   final double elevation;
+  final List<BoxShadow>? boxShadows;
 
   FloatingNavbar({
     Key? key,
@@ -40,6 +41,7 @@ class FloatingNavbar extends StatefulWidget {
     this.padding = const EdgeInsets.symmetric(vertical: 8),
     this.width = double.infinity,
     this.elevation = 0.0,
+    this.boxShadows,
   })  : assert(items.length > 1),
         assert(items.length <= 5),
         assert(currentIndex <= items.length),
@@ -82,6 +84,7 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(widget.borderRadius),
               color: widget.backgroundColor,
+              boxShadow: widget.boxShadows,
             ),
             width: widget.width,
             child: Padding(
@@ -118,6 +121,7 @@ ItemBuilder _defaultItemBuilder({
   double? iconSize,
   double? itemBorderRadius,
   double? borderRadius,
+  BoxShadow? boxShadow,
 }) {
   return (BuildContext context, int index, FloatingNavbarItem item) => Expanded(
         child: Row(
